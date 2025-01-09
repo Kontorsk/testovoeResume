@@ -9,10 +9,10 @@
 <script>
 export default {
   emits: ['close'],
-  props: ['alert']
+  props: ['alert'] // выше обращаемся сразу к свойству, которого может не быть - нужно проверить наличие свойства и значения
 }
 </script>
-
+<!-- снести -->
   <style scoped>
 
   </style>

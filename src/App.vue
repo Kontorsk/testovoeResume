@@ -1,159 +1,177 @@
 <template>
-<div>
-  <div class="alert-div">
-  <app-alert :alert="alert" @close="alert = null"></app-alert>
+  <div>
+    <!-- форматирование надо настроить при сохранении файла, если сам не разберёшься - позови, едет пиздец -->
+    <div class="alert-div">
+      <!-- компоненты без слотов лучше делай самозакрывающимися, как тут, поправь везде -->
+      <app-alert :alert="alert" @close="alert = null" />
+    </div>
+    <div class="container column">
+      <app-form @block-added="addBlock"></app-form>
+      <!-- а зачем "2"? В целом использование цифр в эммитах - это плохая практика, но пробегайся по коду и убирай корявые заглушки -->
+      <app-resume
+        :blocks="blocks"
+        :loadingBlocks="loadingBlocks"
+        @remove2="removeBlock"
+      ></app-resume>
+    </div>
+    <div class="container">
+      <app-comments-list
+        :emails="emails"
+        :was-loaded="wasLoaded"
+        @load="loadEmails"
+      ></app-comments-list>
+      <app-loader v-if="loading"></app-loader>
+    </div>
   </div>
-  <div class="container column">
-    <app-form
-    @block-added="addBlock"
-    ></app-form>
-    <app-resume 
-    :blocks="blocks" 
-    :loadingBlocks="loadingBlocks"
-    @remove2="removeBlock"
-    ></app-resume>
-  </div>
-  <div class="container">
-    <app-comments-list
-    :emails="emails"
-    :was-loaded="wasLoaded"
-    @load="loadEmails"
-    ></app-comments-list>
-    <app-loader v-if="loading"></app-loader>
-  </div>
-</div>
 </template>
 
 <script>
-/* eslint-disable */
-import AppCommentsList from './components/AppCommentsList.vue';
-import AppLoader from './components/AppLoader.vue';
-import axios from 'axios'
-import AppForm from './components/AppForm.vue';
-import AppAlert from './components/AppAlert.vue';
-import AppResume from './components/AppResume.vue';
+/* eslint-disable -- Зачем? */
+import AppCommentsList from "./components/AppCommentsList.vue";
+import AppLoader from "./components/AppLoader.vue";
+import axios from "axios";
+import AppForm from "./components/AppForm.vue";
+import AppAlert from "./components/AppAlert.vue";
+import AppResume from "./components/AppResume.vue";
 
+//поправь порядок свойств, работает как угодно, но есть рекомендации и на проектах блюдят через линтер - https://ru.vuejs.org/style-guide/rules-recommended
 export default {
   data() {
     return {
       emails: [],
-      loading: false,
-      wasLoaded: false,
+      loading: false, // три флага загрузки - какая-то дрочь, нужно либо переделать
+      wasLoaded: false, // либо поработать над неймингом и структурированием, чтобы было понятно + сортируй свойства по смыслу
       alert: null,
       blocks: [],
-      loadingBlocks: false
-    }
+      loadingBlocks: false,
+    };
   },
-  mounted () {
-    this.loadBlocks()
+  //подумай, можно ли выполнять метод на другом хуке жизненного цикла, чтобы он уже был загружен. Это вопрос с собесов в принципе
+  mounted() {
+    this.loadBlocks();
   },
   methods: {
-    async loadEmails () {
+    async loadEmails() {
       try {
-        this.loading = true
-        const { data } = await axios.get('https://jsonplaceholder.typicode.com/comments?_limit=42')
+        this.loading = true;
+        const { data } = await axios.get(
+          "https://jsonplaceholder.typicode.com/comments?_limit=42"
+        );
         if (!data) {
-          throw new Error('Список комментариев пуст') 
+          throw new Error("Список комментариев пуст");
         }
-        this.emails = Object.keys(data).map(key => {
+        this.emails = Object.keys(data).map((key) => {
           return {
             id: key,
-            ...data[key]
-          }
-        }) 
-        this.loading = false
-        this.wasLoaded = true
+            ...data[key],
+          };
+        });
+        this.loading = false;
+        this.wasLoaded = true;
       } catch (e) {
         this.alert = {
-          type: 'danger',
-          title: 'Ошибка!',
-          text: e.message
-        }
-        this.loading = false
-        console.log(e.message)
+          type: "danger",
+          title: "Ошибка!",
+          text: e.message,
+        };
+        this.loading = false;
+        console.log(e.message);
       }
     },
+    //сноси лишнее
     // addBlock(block) {
     //   this.blocks.push(block)
     // },
-    async addBlock (block) {
-      const response = await fetch('https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          type: block.type,
-          value: block.value,
-        })
-      })
-      const firebaseData = await response.json()
+    async addBlock(block) {
+      const response = await fetch(
+        "https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: block.type,
+            value: block.value,
+          }),
+        }
+      );
+      const firebaseData = await response.json();
       this.blocks.push({
         blockType: block.type,
         blockValue: block.value,
-        id: firebaseData.value
-      })
-      this.loadBlocks()
+        id: firebaseData.value,
+      });
+      this.loadBlocks();
     },
-    async loadBlocks () {
+    async loadBlocks() {
       try {
-        this.loadingBlocks = true 
-        const { data } = await axios.get('https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json')
+        this.loadingBlocks = true;
+        const { data } = await axios.get(
+          "https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json"
+        );
         if (!data) {
-          throw new Error('Список блоков пуст')
+          throw new Error("Список блоков пуст");
         }
-        this.blocks = Object.keys(data).map(key => {
+        this.blocks = Object.keys(data).map((key) => {
           return {
             id: key,
-            ...data[key]
-          }
-        }) 
-        this.loadingBlocks = false
+            ...data[key],
+          };
+        });
+        this.loadingBlocks = false;
       } catch (e) {
         this.alert = {
-          type: 'danger',
-          title: 'Ошибка!',
-          text: e.message
-        }
-        this.loadingBlocks = false
+          type: "danger",
+          title: "Ошибка!",
+          text: e.message,
+        };
+        this.loadingBlocks = false;
       }
     },
-    async removeBlock (id) {
+    async removeBlock(id) {
       try {
-        await axios.delete(`https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks/${id}.json`)
-        this.blocks = this.blocks.filter(block => block.id !== id)
+        await axios.delete(
+          `https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks/${id}.json`
+        );
+        this.blocks = this.blocks.filter((block) => block.id !== id);
         this.alert = {
-          type: 'primary',
-          title: 'Успешно!',
-          text: `Block с id:"${id}" был удалён`
-        }
+          type: "primary",
+          title: "Успешно!",
+          text: `Block с id:"${id}" был удалён`,
+        };
       } catch (e) {
-        console.log(e.message)
+        console.log(e.message);
       }
-    }
+    },
   },
   components: {
-    AppLoader, AppCommentsList, AppForm, AppAlert, AppResume
-  }
-}
+    AppLoader,
+    AppCommentsList,
+    AppForm,
+    AppAlert,
+    AppResume,
+  },
+};
 </script>
 
 <style>
-  .avatar {
-    display: flex;
-    justify-content: center;
-  }
+.avatar {
+  display: flex;
+  justify-content: center;
+}
 
-  .avatar img {
-    width: 150px;
-    height: auto;
-    border-radius: 50%;
-  }
+.avatar img {
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
 
-  .alert-div {
-    display: flex; 
-    justify-content: center
-  }
+.alert-div {
+  display: flex;
+  justify-content: center;
+}
 </style>
 
+<!-- ?? -->
 <!-- // npm install axios --force -->

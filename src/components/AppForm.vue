@@ -12,6 +12,7 @@
 
       <div class="form-control">
         <label for="value">Значение</label>
+        <!-- нет слота - делай самозакрывающий -->
         <textarea id="value" rows="3" v-model="value"></textarea>
       </div>
 
@@ -20,33 +21,34 @@
 </template>
 
 <script>
-  export default {
-    emits: ['block-added'],
-    data() {
+export default {
+  emits: ['block-added'],
+  data () {
     return {
       value: '',
       type: 'title'
     }
   },
-    computed: {
-    activeBtn() {
-      return this.value.length<4
+  computed: {
+    activeBtn () {
+      return this.value.length < 4 // это даже не формат, это пиздец
     }
   },
   methods: {
-    submit() {
-      this.$emit('block-added', {
-        type: this.type,
-        value: this.value,
-        // id: Date.now()
-      }),
+    submit () {
+      // ошибка
+      // this.$emit('block-added', {
+      //   type: this.type,
+      //   value: this.value,
+      //   // id: Date.now() - зачем?
+      // }),
       this.value = ''
       this.type = 'title'
     }
   }
-  }
+}
 </script>
-
+<!-- юзлесс тег, тк пустой - сноси -->
 <style scoped>
 
 </style>
