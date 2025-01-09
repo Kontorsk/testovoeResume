@@ -10,7 +10,7 @@ module.exports = {
   parserOptions: {
     parser: '@babel/eslint-parser'
   },
-  rules: {
+  rules: { // тут настраиваются предупреждения и errors по линту, сюда добавляем правила
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }

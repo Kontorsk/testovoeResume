@@ -1,4 +1,5 @@
 <template>
+  <!-- нужен ли div? -->
   <div>
     <h1 @click.right.prevent="$emit('remove')">{{$attrs.value}}</h1>
   </div>
