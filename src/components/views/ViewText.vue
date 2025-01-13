@@ -1,13 +1,13 @@
 <template>
   <div>
     <p @click.right.prevent="$emit('remove')">
-      {{$attrs.value}}
+      {{ $attrs.value }}
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  emits: ['remove']
-}
+  emits: ["remove"],
+};
 </script>

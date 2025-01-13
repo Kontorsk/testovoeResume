@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <h1 @click.right.prevent="$emit('remove')">{{$attrs.value}}</h1>
-  </div>
+    <h1 @click.right.prevent="$emit('remove')">{{ $attrs.value }}</h1>
 </template>
 
 <script>
 export default {
-  emits: ['remove']
-}
+  emits: ["remove"],
+};
 </script>

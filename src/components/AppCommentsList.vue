@@ -1,29 +1,33 @@
 <template>
   <div>
-    <p>
-      <button class="btn primary" @click="$emit('load')">Загрузить комментарии</button>
-    </p>
-    <div class="card" v-if="wasLoaded">
+    <app-button-primary @click="$emit('load')" />
+    <div class="card" v-if="comments.length">
       <h2>Комментарии</h2>
       <ul class="list">
-        <li class="list-item" v-for="email in emails" :key="emails.id">
+        <li class="list-item" v-for="comment in comments" :key="comments.id">
           <div>
-            <p><strong>{{email.email}}</strong></p>
-            <small>{{ email.body }}</small>
+            <p>
+              <strong>{{ comment.email }}</strong>
+            </p>
+            <small>{{ comment.body }}</small>
           </div>
         </li>
       </ul>
     </div>
+    <app-loader v-if="loadingComments"/>
   </div>
 </template>
-<!-- случайно назвать комментарии почтами -->
 <script>
-  export default {
-    emits: ['load'],
-    props: ['emails', 'wasLoaded']
-  }
+import AppButtonPrimary from './AppButtonPrimary.vue';
+import AppLoader from './AppLoader.vue';
+
+export default {
+  components: {
+    AppButtonPrimary, AppLoader
+  },
+  props: ["comments", "loadingComments"],
+  emits: ["load"],
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
