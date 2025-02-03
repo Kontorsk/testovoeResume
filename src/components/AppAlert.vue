@@ -13,7 +13,7 @@ export default {
   props: {
     alert: {
       type: Object,
-      default: null,
+      required: true,
       validator(value) {
         return ['danger', 'primary'].includes(value.type);
       },
