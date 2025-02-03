@@ -12,7 +12,12 @@
 
     <div class="form-control">
       <label for="value">Значение</label>
-      <textarea id="value" rows="3" v-model="value" />
+      <textarea
+        id="value"
+        rows="3"
+        v-model="value"
+        :placeholder="optionalPlaceholder"
+      />
     </div>
 
     <button class="btn primary" :disabled="activeBtn">Добавить</button>
@@ -31,6 +36,13 @@ export default {
   computed: {
     activeBtn() {
       return this.value.length < 4;
+    },
+    optionalPlaceholder() {
+      if (this.type !== 'avatar') {
+        return 'Введите текст (более 4 символов)';
+      } else {
+        return 'Введите URL';
+      }
     },
   },
   methods: {
