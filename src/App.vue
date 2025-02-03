@@ -22,16 +22,14 @@
 </template>
 
 <script>
-import AppCommentsList from "./components/AppCommentsList.vue";
-import AppLoader from "./components/AppLoader.vue";
-import axios from "axios";
-import AppForm from "./components/AppForm.vue";
-import AppAlert from "./components/AppAlert.vue";
-import AppResume from "./components/AppResume.vue";
+import AppCommentsList from './components/AppCommentsList.vue';
+import axios from 'axios';
+import AppForm from './components/AppForm.vue';
+import AppAlert from './components/AppAlert.vue';
+import AppResume from './components/AppResume.vue';
 
 export default {
   components: {
-    AppLoader,
     AppCommentsList,
     AppForm,
     AppAlert,
@@ -54,10 +52,10 @@ export default {
       try {
         this.loadingComments = true;
         const { data } = await axios.get(
-          "https://jsonplaceholder.typicode.com/comments?_limit=42"
+          'https://jsonplaceholder.typicode.com/comments?_limit=42',
         );
         if (!data) {
-          throw new Error("Список комментариев пуст");
+          throw new Error('Список комментариев пуст');
         }
         this.comments = Object.keys(data).map((key) => {
           return {
@@ -68,8 +66,8 @@ export default {
         this.loadingComments = false;
       } catch (e) {
         this.alert = {
-          type: "danger",
-          title: "Ошибка!",
+          type: 'danger',
+          title: 'Ошибка!',
           text: e.message,
         };
         this.loadingComments = false;
@@ -78,17 +76,17 @@ export default {
     },
     async addBlock(block) {
       const response = await fetch(
-        "https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json",
+        'https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             type: block.type,
             value: block.value,
           }),
-        }
+        },
       );
       const firebaseData = await response.json();
       this.blocks.push({
@@ -102,10 +100,10 @@ export default {
       try {
         this.loadingBlocks = true;
         const { data } = await axios.get(
-          "https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json"
+          'https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json',
         );
         if (!data) {
-          throw new Error("Список блоков пуст");
+          throw new Error('Список блоков пуст');
         }
         this.blocks = Object.keys(data).map((key) => {
           return {
@@ -116,8 +114,8 @@ export default {
         this.loadingBlocks = false;
       } catch (e) {
         this.alert = {
-          type: "danger",
-          title: "Ошибка!",
+          type: 'danger',
+          title: 'Ошибка!',
           text: e.message,
         };
         this.loadingBlocks = false;
@@ -126,12 +124,12 @@ export default {
     async removeBlock(id) {
       try {
         await axios.delete(
-          `https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks/${id}.json`
+          `https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks/${id}.json`,
         );
         this.blocks = this.blocks.filter((block) => block.id !== id);
         this.alert = {
-          type: "primary",
-          title: "Успешно!",
+          type: 'primary',
+          title: 'Успешно!',
           text: `Block с id:"${id}" был удалён`,
         };
       } catch (e) {

@@ -21,11 +21,11 @@
 
 <script>
 export default {
-  emits: ["block-added"],
+  emits: ['block-added'],
   data() {
     return {
-      value: "",
-      type: "title",
+      value: '',
+      type: 'title',
     };
   },
   computed: {
@@ -35,12 +35,12 @@ export default {
   },
   methods: {
     submit() {
-      this.$emit("block-added", {
+      this.$emit('block-added', {
         type: this.type,
         value: this.value,
       });
-      this.value = "";
-      this.type = "title";
+      this.value = '';
+      this.type = 'title';
     },
   },
 };

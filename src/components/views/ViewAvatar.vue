@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  emits: ["remove"],
+  emits: ['remove'],
 };
 </script>

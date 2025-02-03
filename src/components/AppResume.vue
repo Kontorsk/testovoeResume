@@ -9,18 +9,18 @@
     >
     </component>
   </div>
-    <app-loader v-else-if="loadingBlocks"/>
+  <app-loader v-else-if="loadingBlocks" />
   <div class="card card-w70" v-else>
     <h3>Добавьте первый блок, чтобы увидеть результат</h3>
   </div>
 </template>
 
 <script>
-import AppLoader from "./AppLoader.vue";
-import ViewAvatar from "./views/ViewAvatar.vue";
-import ViewSubtitle from "./views/ViewSubtitle.vue";
-import ViewText from "./views/ViewText.vue";
-import ViewTitle from "./views/ViewTitle.vue";
+import AppLoader from './AppLoader.vue';
+import ViewAvatar from './views/ViewAvatar.vue';
+import ViewSubtitle from './views/ViewSubtitle.vue';
+import ViewText from './views/ViewText.vue';
+import ViewTitle from './views/ViewTitle.vue';
 
 export default {
   components: {
@@ -30,7 +30,7 @@ export default {
     ViewTitle,
     AppLoader,
   },
-  props: ["blocks", "loadingBlocks"],
+  props: ['blocks', 'loadingBlocks'],
 };
 </script>
 

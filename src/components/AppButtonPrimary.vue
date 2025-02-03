@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  emits: ["load"],
+  emits: ['load'],
 };
 </script>
 
@@ -31,6 +31,6 @@ export default {
   transition: all 0.22s;
   background: #42b983;
   color: #fff;
-  cursor:pointer
+  cursor: pointer;
 }
 </style>

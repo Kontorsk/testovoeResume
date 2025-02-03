@@ -15,11 +15,10 @@ export default {
       type: Object,
       default: null,
       validator(value) {
-        return ["danger", "primary"].includes(value.type);
+        return ['danger', 'primary'].includes(value.type);
       },
     },
   },
-  emits: ["close"],
+  emits: ['close'],
 };
 </script>
-
