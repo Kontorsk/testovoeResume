@@ -71,30 +71,39 @@ export default {
           text: e.message,
         };
         this.loadingComments = false;
-        console.log(e.message);
+        console.error(e.message);
       }
     },
     async addBlock(block) {
-      const response = await fetch(
-        'https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+      try {
+        const response = await fetch(
+          'https://vue-resume-base-14cc9-default-rtdb.firebaseio.com/blocks.json',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              type: block.type,
+              value: block.value,
+            }),
           },
-          body: JSON.stringify({
-            type: block.type,
-            value: block.value,
-          }),
-        },
-      );
-      const firebaseData = await response.json();
-      this.blocks.push({
-        blockType: block.type,
-        blockValue: block.value,
-        id: firebaseData.value,
-      });
-      this.loadBlocks();
+        );
+        const firebaseData = await response.json();
+        this.blocks.push({
+          blockType: block.type,
+          blockValue: block.value,
+          id: firebaseData.value,
+        });
+        this.loadBlocks();
+      } catch (e) {
+        this.alert = {
+          type: 'danger',
+          title: 'Ошибка!',
+          text: e.message,
+        };
+        console.error(e.message);
+      }
     },
     async loadBlocks() {
       try {
@@ -133,7 +142,7 @@ export default {
           text: `Block с id:"${id}" был удалён`,
         };
       } catch (e) {
-        console.log(e.message);
+        console.error(e.message);
       }
     },
   },

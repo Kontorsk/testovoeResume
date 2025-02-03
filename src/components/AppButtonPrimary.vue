@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <p>
-      <button class="primary">Загрузить комментарии</button>
-    </p>
-  </div>
+  <p>
+    <button class="primary">Загрузить комментарии</button>
+  </p>
 </template>
 
 <script>
