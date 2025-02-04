@@ -47,6 +47,13 @@ export default {
   created() {
     this.loadBlocks();
   },
+  watch: {
+    alert() {
+      setTimeout(() => {
+        this.alert = null;
+      }, 5000);
+    },
+  },
   methods: {
     async loadComments() {
       try {
