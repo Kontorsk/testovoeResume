@@ -14,8 +14,8 @@
     <div class="container">
       <app-comments-list
         :comments="comments"
-        @load="loadComments"
         :loadingComments="loadingComments"
+        @load="loadComments"
       />
     </div>
   </div>

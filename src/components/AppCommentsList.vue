@@ -1,9 +1,9 @@
 <template>
   <app-button-primary @click="$emit('load')" />
-  <div class="card" v-if="comments.length">
+  <div v-if="comments.length" class="card">
     <h2>Комментарии</h2>
     <ul class="list">
-      <li class="list-item" v-for="comment in comments" :key="comment.id">
+      <li v-for="comment in comments" :key="comment.id" class="list-item">
         <div>
           <p>
             <strong>{{ comment.email }}</strong>

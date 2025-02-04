@@ -1,5 +1,5 @@
 <template>
-  <form class="card card-w30" @submit.prevent="submit">
+  <form @submit.prevent="submit" class="card card-w30">
     <div class="form-control">
       <label for="type">Тип блока</label>
       <select id="type" v-model="type">
@@ -13,14 +13,14 @@
     <div class="form-control">
       <label for="value">Значение</label>
       <textarea
-        id="value"
-        rows="3"
         v-model="value"
         :placeholder="optionalPlaceholder"
+        id="value"
+        rows="3"
       />
     </div>
 
-    <button class="btn primary" :disabled="activeBtn">Добавить</button>
+    <button :disabled="activeBtn" class="btn primary">Добавить</button>
   </form>
 </template>
 

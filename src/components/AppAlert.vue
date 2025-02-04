@@ -1,5 +1,5 @@
 <template>
-  <div class="alert" v-if="alert" :class="alert.type">
+  <div v-if="alert" :class="alert.type" class="alert">
     <h3>{{ alert.title }}</h3>
     <p>{{ alert.text }}</p>
     <button class="btn" :class="alert.type" @click="$emit('close')">
