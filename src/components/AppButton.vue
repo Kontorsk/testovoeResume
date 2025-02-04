@@ -1,17 +1,12 @@
 <template>
-  <p>
-    <button class="primary">Загрузить комментарии</button>
-  </p>
+  <button class="btn">
+    <slot />
+  </button>
 </template>
 
-<script>
-export default {
-  emits: ['load'],
-};
-</script>
-
 <style scoped>
-.primary {
+.btn {
+  color: #42b983;
   position: relative;
   place-content: center;
   place-items: center;
@@ -26,9 +21,8 @@ export default {
   white-space: nowrap;
   font-weight: 700;
   outline: none;
+  background: #fff;
   transition: all 0.22s;
-  background: #42b983;
-  color: #fff;
   cursor: pointer;
 }
 </style>

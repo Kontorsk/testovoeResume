@@ -1,5 +1,7 @@
 <template>
-  <app-button-primary @click="$emit('load')" />
+  <app-button @click="$emit('load')" class="btn primary">
+    Загрузить комментарии
+  </app-button>
   <div v-if="comments.length" class="card">
     <h2>Комментарии</h2>
     <ul class="list">
@@ -16,12 +18,12 @@
   <app-loader v-if="loadingComments" />
 </template>
 <script>
-import AppButtonPrimary from './AppButtonPrimary.vue';
+import AppButton from './AppButton.vue';
 import AppLoader from './AppLoader.vue';
 
 export default {
   components: {
-    AppButtonPrimary,
+    AppButton,
     AppLoader,
   },
   props: ['comments', 'loadingComments'],

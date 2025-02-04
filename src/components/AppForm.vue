@@ -20,12 +20,16 @@
       />
     </div>
 
-    <button :disabled="activeBtn" class="btn primary">Добавить</button>
+    <app-button :disabled="activeBtn" class="btn primary">Добавить</app-button>
   </form>
 </template>
 
 <script>
+import AppButton from './AppButton.vue';
 export default {
+  components: {
+    AppButton,
+  },
   emits: ['block-added'],
   data() {
     return {
