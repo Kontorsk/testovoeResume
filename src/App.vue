@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="alert-div">
-      <app-alert :alert="alert" @close="alert = null" />
+      <app-alert
+        :alert="alert"
+        @close="alert = null"
+      />
     </div>
     <div class="container column">
       <app-form @block-added="addBlock" />

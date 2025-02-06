@@ -1,5 +1,8 @@
 <template>
-  <div v-if="blocks.length" class="card card-w70">
+  <div
+    v-if="blocks.length"
+    class="card card-w70"
+  >
     <component
       v-for="block in blocks"
       :key="block.id"
@@ -10,7 +13,10 @@
     </component>
   </div>
   <app-loader v-else-if="loadingBlocks" />
-  <div v-else class="card card-w70">
+  <div
+    v-else
+    class="card card-w70"
+  >
     <h3>Добавьте первый блок, чтобы увидеть результат</h3>
   </div>
 </template>

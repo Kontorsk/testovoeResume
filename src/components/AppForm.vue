@@ -1,8 +1,14 @@
 <template>
-  <form @submit.prevent="submit" class="card card-w30">
+  <form
+    @submit.prevent="submit"
+    class="card card-w30"
+  >
     <div class="form-control">
       <label for="type">Тип блока</label>
-      <select id="type" v-model="type">
+      <select
+        id="type"
+        v-model="type"
+      >
         <option value="title">Заголовок</option>
         <option value="subtitle">Подзаголовок</option>
         <option value="avatar">Аватар</option>
@@ -20,7 +26,11 @@
       />
     </div>
 
-    <app-button :disabled="activeBtn" class="btn primary">Добавить</app-button>
+    <app-button
+      :disabled="activeBtn"
+      class="btn primary"
+      >Добавить</app-button
+    >
   </form>
 </template>
 

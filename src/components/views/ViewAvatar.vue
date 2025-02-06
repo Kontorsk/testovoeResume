@@ -1,6 +1,9 @@
 <template>
   <div class="avatar">
-    <img :src="$attrs.value" @click.right.prevent="$emit('remove')" />
+    <img
+      :src="$attrs.value"
+      @click.right.prevent="$emit('remove')"
+    />
   </div>
 </template>
 

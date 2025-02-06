@@ -1,11 +1,21 @@
 <template>
-  <app-button @click="$emit('load')" class="btn primary">
+  <app-button
+    @click="$emit('load')"
+    class="btn primary"
+  >
     Загрузить комментарии
   </app-button>
-  <div v-if="comments.length" class="comments">
+  <div
+    v-if="comments.length"
+    class="comments"
+  >
     <h2>Комментарии</h2>
     <ul class="list">
-      <li v-for="comment in comments" :key="comment.id" class="list-item">
+      <li
+        v-for="comment in comments"
+        :key="comment.id"
+        class="list-item"
+      >
         <div>
           <p>
             <strong>{{ comment.email }}</strong>
