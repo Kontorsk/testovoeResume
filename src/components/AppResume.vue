@@ -30,7 +30,16 @@ export default {
     ViewTitle,
     AppLoader,
   },
-  props: ['blocks', 'loadingBlocks'],
+  props: {
+    blocks: {
+      type: Array,
+      required: true,
+    },
+    loadingBlocks: {
+      type: Boolean,
+      required: true,
+    },
+  },
 };
 </script>
 

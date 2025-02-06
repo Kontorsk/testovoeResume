@@ -26,6 +26,7 @@
 
 <script>
 import AppButton from './AppButton.vue';
+
 export default {
   components: {
     AppButton,

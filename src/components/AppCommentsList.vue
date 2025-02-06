@@ -2,7 +2,7 @@
   <app-button @click="$emit('load')" class="btn primary">
     Загрузить комментарии
   </app-button>
-  <div v-if="comments.length" class="card">
+  <div v-if="comments.length" class="comments">
     <h2>Комментарии</h2>
     <ul class="list">
       <li v-for="comment in comments" :key="comment.id" class="list-item">
@@ -17,6 +17,7 @@
   </div>
   <app-loader v-if="loadingComments" />
 </template>
+
 <script>
 import AppButton from './AppButton.vue';
 import AppLoader from './AppLoader.vue';
@@ -26,9 +27,16 @@ export default {
     AppButton,
     AppLoader,
   },
-  props: ['comments', 'loadingComments'],
+  props: {
+    comments: {
+      type: Array,
+      required: true,
+    },
+    loadingComments: {
+      type: Boolean,
+      required: true,
+    },
+  },
   emits: ['load'],
 };
 </script>
-
-<style scoped></style>
